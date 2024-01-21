@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float speed;
@@ -37,7 +38,6 @@ public class PlayerMovement : MonoBehaviour
     private void SetMoveDirection(InputAction.CallbackContext ctx)
     {
         moveDir = ctx.ReadValue<Vector2>();
-        Debug.Log(moveDir);
     }
 
     private void StopMovement(InputAction.CallbackContext ctx) => moveDir = Vector2.zero;
