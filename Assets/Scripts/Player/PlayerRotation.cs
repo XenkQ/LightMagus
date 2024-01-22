@@ -10,15 +10,12 @@ public class PlayerRotation : MonoBehaviour
 {
     private CustomInputs _customInputs;
     private Rigidbody _rb;
-    private Camera mainCamera;
-    private Vector3 currentPlayerLookPos;
     [SerializeField] private Transform cameraPosObject;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
         _customInputs = new CustomInputs();
-        mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
     }
 
     private void FixedUpdate()
@@ -38,13 +35,8 @@ public class PlayerRotation : MonoBehaviour
 
     private void RotatePlayerToMouseDirection()
     {
-        Vector3 mousePos = mainCamera.ScreenToWorldPoint(
-            _customInputs.Player.Look.ReadValue<Vector2>()
-            );
-        
-        currentPlayerLookPos = mousePos;
+        Vector3 mousePos = Mouse.OnScreenWorldPosition;
         cameraPosObject.transform.position = new Vector3(mousePos.x, 0, mousePos.z);
-
         transform.LookAt(new Vector3(mousePos.x, 0, mousePos.z));
     }
 
@@ -53,9 +45,9 @@ public class PlayerRotation : MonoBehaviour
         if (Application.isPlaying)
         {
             Gizmos.DrawSphere(new Vector3(
-                currentPlayerLookPos.x,
+                Mouse.OnScreenWorldPosition.x,
                 0,
-                currentPlayerLookPos.z),
+                Mouse.OnScreenWorldPosition.z),
                 1);
         }
     }
