@@ -24,7 +24,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "CristalInteraction",
+                    "name": "Interaction",
                     "type": "Button",
                     "id": "4cceed5b-c39f-45d6-b094-c01f0f79c98e",
                     "expectedControlType": "Button",
@@ -107,7 +107,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "CristalInteraction",
+                    "action": "Interaction",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

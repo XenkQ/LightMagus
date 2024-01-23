@@ -1,33 +1,19 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInteractions : MonoBehaviour
 {
-    private CustomInputs _customInputs;
-
-    private void Awake()
+    private void Update()
     {
-        _customInputs = new CustomInputs();
-        _customInputs.Player.CristalInteraction.performed += (ctx) =>
+        if (PlayerInputHandler.Instance.IsInteracting)
         {
             CristalInteraction();
-        };
-    }
-
-    private void OnEnable()
-    {
-        _customInputs.Enable();
-    }
-
-    private void OnDisable()
-    {
-        _customInputs.Disable();
+        }
     }
 
     private void CristalInteraction()
     {
         //Add ray from mouse pos checking if objects' type is cristal
+        Console.WriteLine("Interaction");
     }
 }
