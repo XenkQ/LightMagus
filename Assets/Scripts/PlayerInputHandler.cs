@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,11 +9,13 @@ public class PlayerInputHandler : MonoBehaviour
 
     private InputAction moveAction;
     private InputAction lookAction;
-    private InputAction interactAction;
+    private InputAction pointerShortInteraction;
+    private InputAction pointerLongInteraction;
     
     public Vector2 MoveInput { get; private set; }
     public Vector2 LookInput { get; private set; }
-    public bool IsInteracting { get; private set; }
+    public bool IsPointerShortInteraction { get; private set; }
+    public bool IsPointerLongInteraction { get; private set; }
     
     public static PlayerInputHandler Instance { get; private set; }
     
@@ -38,7 +41,8 @@ public class PlayerInputHandler : MonoBehaviour
     {
         moveAction = _customInputs.Player.Movement;
         lookAction = _customInputs.Player.Look;
-        interactAction = _customInputs.Player.Interaction;
+        pointerShortInteraction = _customInputs.Player.PointerShortInteraction;
+        pointerLongInteraction = _customInputs.Player.PointerLongInteraction;
     }
 
     private void RegisterInputActions()
@@ -49,21 +53,26 @@ public class PlayerInputHandler : MonoBehaviour
         lookAction.performed += context => LookInput = context.ReadValue<Vector2>();
         lookAction.canceled += context => LookInput = Vector2.zero;
         
-        interactAction.performed += context => IsInteracting = true;
-        interactAction.canceled += context => IsInteracting = false;
+        pointerLongInteraction.performed += context => IsPointerLongInteraction = true;
+        pointerLongInteraction.canceled += context => IsPointerLongInteraction = false;
+        
+        pointerShortInteraction.performed += context => IsPointerShortInteraction = true;
+        pointerShortInteraction.canceled += context => IsPointerShortInteraction = false;
     }
 
     private void OnDisable()
     {
         moveAction.Disable();
         lookAction.Disable();
-        interactAction.Disable();
+        pointerShortInteraction.Disable();
+        pointerLongInteraction.Disable();
     }
 
     private void OnEnable()
     {
         moveAction.Enable();
         lookAction.Enable();
-        interactAction.Enable();
+        pointerShortInteraction.Enable();
+        pointerLongInteraction.Enable();
     }
 }

@@ -1,10 +1,15 @@
+using System;
 using UnityEngine;
 
-public class Mouse : MonoBehaviour
+public class Pointer : MonoBehaviour
 {
     [SerializeField] private float worldHeightOffset = 0;
     public static Vector3 OnScreenWorldPosition { get; private set; }
     private Camera _mainCamera;
+
+    public delegate void PointerInteractionDelegate(GameObject interactingWith);
+    public static event PointerInteractionDelegate OnPointerShortInteraction;
+    public static event PointerInteractionDelegate OnPointerLongInteraction;
 
     private void Awake()
     {
@@ -14,6 +19,15 @@ public class Mouse : MonoBehaviour
     private void FixedUpdate()
     {
         UpdateMousePosition();
+    }
+    
+    private void Update()
+    {
+        if(PlayerInputHandler.Instance.IsPointerShortInteraction)
+            OnPointerShortInteraction?.Invoke(this.gameObject);
+        
+        if(PlayerInputHandler.Instance.IsPointerLongInteraction)
+            OnPointerLongInteraction?.Invoke(this.gameObject);
     }
 
     private void UpdateMousePosition()

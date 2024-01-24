@@ -24,9 +24,18 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Interaction",
+                    "name": "PointerLongInteraction",
                     "type": "Button",
                     "id": "4cceed5b-c39f-45d6-b094-c01f0f79c98e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PointerShortInteraction",
+                    "type": "Button",
+                    "id": "0880e243-111c-42ec-b4c5-91017471ff8e",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -107,7 +116,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Interaction",
+                    "action": "PointerLongInteraction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8e509d7b-569a-4713-8126-7e33ca6d7e15",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PointerShortInteraction",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

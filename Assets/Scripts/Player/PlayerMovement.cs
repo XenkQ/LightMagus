@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleMovement()
     {
-        Vector2 moveDir = PlayerInputHandler.Instance.MoveInput;
+        Vector2 moveDir = PlayerInputHandler.Instance.MoveInput.normalized;
         _rb.velocity = new Vector3(moveDir.x * speed, 0, moveDir.y * speed);
     }
 }

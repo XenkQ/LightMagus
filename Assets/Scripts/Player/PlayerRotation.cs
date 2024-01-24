@@ -18,7 +18,7 @@ public class PlayerRotation : MonoBehaviour
 
     private void RotatePlayerToMouseDirection()
     {
-        Vector3 mouseDir = Mouse.OnScreenWorldPosition - transform.position;
+        Vector3 mouseDir = Pointer.OnScreenWorldPosition - transform.position;
         float angle = Mathf.Atan2(mouseDir.z, mouseDir.x) * Mathf.Rad2Deg;
         _rb.MoveRotation(Quaternion.AngleAxis(angle, Vector3.down));
     }
@@ -28,9 +28,9 @@ public class PlayerRotation : MonoBehaviour
         if (Application.isPlaying)
         {
             Gizmos.DrawSphere(new Vector3(
-                Mouse.OnScreenWorldPosition.x,
+                Pointer.OnScreenWorldPosition.x,
                 0,
-                Mouse.OnScreenWorldPosition.z),
+                Pointer.OnScreenWorldPosition.z),
                 1);
         }
     }

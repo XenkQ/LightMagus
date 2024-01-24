@@ -46,9 +46,18 @@ public partial class @CustomInputs: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Interaction"",
+                    ""name"": ""PointerLongInteraction"",
                     ""type"": ""Button"",
                     ""id"": ""4cceed5b-c39f-45d6-b094-c01f0f79c98e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PointerShortInteraction"",
+                    ""type"": ""Button"",
+                    ""id"": ""0880e243-111c-42ec-b4c5-91017471ff8e"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -129,7 +138,18 @@ public partial class @CustomInputs: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Interaction"",
+                    ""action"": ""PointerLongInteraction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8e509d7b-569a-4713-8126-7e33ca6d7e15"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PointerShortInteraction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -142,7 +162,8 @@ public partial class @CustomInputs: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
-        m_Player_Interaction = m_Player.FindAction("Interaction", throwIfNotFound: true);
+        m_Player_PointerLongInteraction = m_Player.FindAction("PointerLongInteraction", throwIfNotFound: true);
+        m_Player_PointerShortInteraction = m_Player.FindAction("PointerShortInteraction", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -206,14 +227,16 @@ public partial class @CustomInputs: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Look;
-    private readonly InputAction m_Player_Interaction;
+    private readonly InputAction m_Player_PointerLongInteraction;
+    private readonly InputAction m_Player_PointerShortInteraction;
     public struct PlayerActions
     {
         private @CustomInputs m_Wrapper;
         public PlayerActions(@CustomInputs wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @Look => m_Wrapper.m_Player_Look;
-        public InputAction @Interaction => m_Wrapper.m_Player_Interaction;
+        public InputAction @PointerLongInteraction => m_Wrapper.m_Player_PointerLongInteraction;
+        public InputAction @PointerShortInteraction => m_Wrapper.m_Player_PointerShortInteraction;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -229,9 +252,12 @@ public partial class @CustomInputs: IInputActionCollection2, IDisposable
             @Look.started += instance.OnLook;
             @Look.performed += instance.OnLook;
             @Look.canceled += instance.OnLook;
-            @Interaction.started += instance.OnInteraction;
-            @Interaction.performed += instance.OnInteraction;
-            @Interaction.canceled += instance.OnInteraction;
+            @PointerLongInteraction.started += instance.OnPointerLongInteraction;
+            @PointerLongInteraction.performed += instance.OnPointerLongInteraction;
+            @PointerLongInteraction.canceled += instance.OnPointerLongInteraction;
+            @PointerShortInteraction.started += instance.OnPointerShortInteraction;
+            @PointerShortInteraction.performed += instance.OnPointerShortInteraction;
+            @PointerShortInteraction.canceled += instance.OnPointerShortInteraction;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -242,9 +268,12 @@ public partial class @CustomInputs: IInputActionCollection2, IDisposable
             @Look.started -= instance.OnLook;
             @Look.performed -= instance.OnLook;
             @Look.canceled -= instance.OnLook;
-            @Interaction.started -= instance.OnInteraction;
-            @Interaction.performed -= instance.OnInteraction;
-            @Interaction.canceled -= instance.OnInteraction;
+            @PointerLongInteraction.started -= instance.OnPointerLongInteraction;
+            @PointerLongInteraction.performed -= instance.OnPointerLongInteraction;
+            @PointerLongInteraction.canceled -= instance.OnPointerLongInteraction;
+            @PointerShortInteraction.started -= instance.OnPointerShortInteraction;
+            @PointerShortInteraction.performed -= instance.OnPointerShortInteraction;
+            @PointerShortInteraction.canceled -= instance.OnPointerShortInteraction;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -266,6 +295,7 @@ public partial class @CustomInputs: IInputActionCollection2, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
-        void OnInteraction(InputAction.CallbackContext context);
+        void OnPointerLongInteraction(InputAction.CallbackContext context);
+        void OnPointerShortInteraction(InputAction.CallbackContext context);
     }
 }

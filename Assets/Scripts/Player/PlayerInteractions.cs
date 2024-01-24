@@ -3,17 +3,19 @@ using UnityEngine;
 
 public class PlayerInteractions : MonoBehaviour
 {
-    private void Update()
+    private void Start()
     {
-        if (PlayerInputHandler.Instance.IsInteracting)
-        {
-            CristalInteraction();
-        }
+        Pointer.OnPointerShortInteraction += ShortInteractionHandler;
+        Pointer.OnPointerLongInteraction += LongInteractionHandler;
     }
-
-    private void CristalInteraction()
+    
+    private void ShortInteractionHandler(GameObject interactingWith)
     {
-        //Add ray from mouse pos checking if objects' type is cristal
-        Console.WriteLine("Interaction");
+        Debug.Log("Short Interaction");
+    }
+    
+    private void LongInteractionHandler(GameObject interactingWith)
+    {
+        Debug.Log("Long Interaction");
     }
 }
