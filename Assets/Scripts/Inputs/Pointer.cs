@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class Pointer : MonoBehaviour
@@ -6,10 +5,9 @@ public class Pointer : MonoBehaviour
     [SerializeField] private float worldHeightOffset = 0;
     public static Vector3 OnScreenWorldPosition { get; private set; }
     private Camera _mainCamera;
-
-    public delegate void PointerInteractionDelegate(GameObject interactingWith);
-    public static event PointerInteractionDelegate OnPointerShortInteraction;
-    public static event PointerInteractionDelegate OnPointerLongInteraction;
+    
+    public static event PlayerInteractions.InteractionDelegate OnPointerShortInteraction;
+    public static event PlayerInteractions.InteractionDelegate OnPointerLongInteraction;
 
     private void Awake()
     {
@@ -18,19 +16,30 @@ public class Pointer : MonoBehaviour
 
     private void FixedUpdate()
     {
-        UpdateMousePosition();
+        UpdateOnScreenWorldPosition();
     }
     
     private void Update()
     {
         if(PlayerInputHandler.Instance.IsPointerShortInteraction)
-            OnPointerShortInteraction?.Invoke(this.gameObject);
+            OnPointerShortInteraction?.Invoke(GetHoveredGameObject());
         
         if(PlayerInputHandler.Instance.IsPointerLongInteraction)
-            OnPointerLongInteraction?.Invoke(this.gameObject);
+            OnPointerLongInteraction?.Invoke(GetHoveredGameObject());
     }
 
-    private void UpdateMousePosition()
+    private GameObject GetHoveredGameObject()
+    {
+        RaycastHit hit;
+        Ray ray = _mainCamera.ScreenPointToRay(PlayerInputHandler.Instance.LookInput);
+        
+        if (Physics.Raycast(ray, out hit))
+            return hit.transform.gameObject;
+
+        return null;
+    }
+
+    private void UpdateOnScreenWorldPosition()
     {
         OnScreenWorldPosition = _mainCamera.ScreenToWorldPoint(PlayerInputHandler.Instance.LookInput);
         OnScreenWorldPosition = new Vector3(

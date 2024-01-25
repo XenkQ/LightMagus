@@ -4923,7 +4923,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4819613100346789487}
   - component: {fileID: 5252935540742007904}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cristal
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -6449,12 +6449,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 600171504}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 357.4, y: 7.78, z: 2.9}
   m_LocalScale: {x: 1.548, y: 25.6968, z: 24.924347}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1769021586}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &601761824
 GameObject:
@@ -17972,7 +17972,7 @@ GameObject:
   - component: {fileID: 1638083696}
   - component: {fileID: 1638083697}
   m_Layer: 0
-  m_Name: Slider
+  m_Name: EnergySlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18044,7 +18044,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 100
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
@@ -19750,7 +19750,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1747826585}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -20487,6 +20487,7 @@ Transform:
   - {fileID: 1041258992}
   - {fileID: 407353493}
   - {fileID: 1395583130}
+  - {fileID: 600171508}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1778114077
@@ -21371,9 +21372,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1897964221}
+  - component: {fileID: 1897964223}
   - component: {fileID: 1897964222}
   m_Layer: 0
-  m_Name: Stats
+  m_Name: EnergySystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21425,6 +21427,20 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &1897964223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897964220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e38d3c254c700b440876e4189ecdd1bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _energySlider: {fileID: 1638083696}
+  _maxEnergyAmount: 100
 --- !u!1 &1915780610
 GameObject:
   m_ObjectHideFlags: 0
@@ -24023,6 +24039,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4047984394907783839, guid: 4a0f785fa0cf46845865787e385ac9e2, type: 3}
+      propertyPath: interactionMask.m_Bits
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6417973951790957465, guid: 4a0f785fa0cf46845865787e385ac9e2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -24082,6 +24102,5 @@ SceneRoots:
   - {fileID: 1150125244}
   - {fileID: 856425435}
   - {fileID: 2891249307418710623}
-  - {fileID: 600171508}
-  - {fileID: 1747826587}
   - {fileID: 1164761680}
+  - {fileID: 1747826587}

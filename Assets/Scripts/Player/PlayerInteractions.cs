@@ -1,8 +1,10 @@
-using System;
 using UnityEngine;
 
 public class PlayerInteractions : MonoBehaviour
 {
+    [SerializeField] private LayerMask interactionMask;
+    public delegate void InteractionDelegate(GameObject interactingWith);
+    
     private void Start()
     {
         Pointer.OnPointerShortInteraction += ShortInteractionHandler;
@@ -11,11 +13,15 @@ public class PlayerInteractions : MonoBehaviour
     
     private void ShortInteractionHandler(GameObject interactingWith)
     {
-        Debug.Log("Short Interaction");
+        if (!MyUtils.Layer.IsLayerInLayerMask(interactingWith.layer, interactionMask)) return;
+        
+        Debug.Log("Short Interaction: " + interactingWith.name);
     }
     
     private void LongInteractionHandler(GameObject interactingWith)
     {
-        Debug.Log("Long Interaction");
+        if (!MyUtils.Layer.IsLayerInLayerMask(interactingWith.layer, interactionMask)) return;
+        
+        Debug.Log("Long Interaction: " + interactingWith.name);
     }
 }
