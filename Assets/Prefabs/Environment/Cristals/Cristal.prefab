@@ -4922,6 +4922,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4819613100346789487}
+  - component: {fileID: 136093427521104944}
   - component: {fileID: 5252935540742007904}
   m_Layer: 3
   m_Name: Cristal
@@ -4948,6 +4949,19 @@ Transform:
   - {fileID: 4428666751460249016}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &136093427521104944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8507257570077453274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dae8bb8276a5e44fb3f17229aeff07a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _energyAmount: 50
 --- !u!65 &5252935540742007904
 BoxCollider:
   m_ObjectHideFlags: 0

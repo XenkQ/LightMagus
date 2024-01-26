@@ -21,7 +21,7 @@ public class PlayerInteractions : MonoBehaviour
     private void LongInteractionHandler(GameObject interactingWith)
     {
         if (!MyUtils.Layer.IsLayerInLayerMask(interactingWith.layer, interactionMask)) return;
-        
-        Debug.Log("Long Interaction: " + interactingWith.name);
+
+        interactingWith.GetComponent<IInteractable>().Interact();
     }
 }

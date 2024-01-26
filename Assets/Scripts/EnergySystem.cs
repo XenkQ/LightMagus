@@ -1,37 +1,37 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnergySystem : MonoBehaviour
+public class EnergySystem : MonoBehaviour, IEnergyHoldable
 {
     [SerializeField] private Slider _energySlider;
-    [SerializeField] private float _maxEnergyAmount = 100f;
-    private float _energyAmount;
+    [SerializeField] private float _maxEnergy = 100f;
+    private float _currentEnergy;
     
     private void Start()
     {
-        _energySlider.maxValue = _maxEnergyAmount;
+        _energySlider.maxValue = _maxEnergy;
     }
 
     public void IncreaseEnergy(float ammount)
     {
-        if (_energyAmount + ammount <= _maxEnergyAmount)
-            _energyAmount += _maxEnergyAmount;
+        if (_currentEnergy + ammount <= _maxEnergy)
+            _currentEnergy += _maxEnergy;
         else
-            _energyAmount = _maxEnergyAmount;
+            _currentEnergy = _maxEnergy;
         
         UpdateEnergySlider();
     }
     
     public void DecreaseEnergy(float ammount)
     {
-        if (_energyAmount - ammount >= 0)
-            _energyAmount -= ammount;
+        if (_currentEnergy - ammount >= 0)
+            _currentEnergy -= ammount;
         else ResetEnergy();
         
         UpdateEnergySlider();
     }
 
-    private void ResetEnergy() => _energyAmount = 0;
+    public void ResetEnergy() => _currentEnergy = 0;
 
-    private void UpdateEnergySlider() => _energySlider.value = _energyAmount;
+    private void UpdateEnergySlider() => _energySlider.value = _currentEnergy;
 }
