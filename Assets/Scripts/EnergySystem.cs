@@ -1,3 +1,5 @@
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,33 +7,42 @@ public class EnergySystem : MonoBehaviour, IEnergyHoldable
 {
     [SerializeField] private Slider _energySlider;
     [SerializeField] private float _maxEnergy = 100f;
-    private float _currentEnergy;
-    
+    public EnergyContainer EnergyContainer { get; private set; }
+    public static float EnergyAmountPerChannel = 15f;
+    private static EnergySystem Instance;
+    private static bool _isChannelingEnergy;
+
+    private void Awake()
+    {
+        if (Instance == null) Instance = this;
+        else Destroy(Instance);
+    }
+
     private void Start()
     {
         _energySlider.maxValue = _maxEnergy;
+        this.EnergyContainer = new EnergyContainer(0, 0, _maxEnergy);
     }
 
-    public void IncreaseEnergy(float ammount)
+    public static void ChannelEnnergyToPlayer(IEnergyHoldable energyHolder,
+        Vector3 channelEffectPos)
     {
-        if (_currentEnergy + ammount <= _maxEnergy)
-            _currentEnergy += _maxEnergy;
-        else
-            _currentEnergy = _maxEnergy;
-        
-        UpdateEnergySlider();
+        if(_isChannelingEnergy) return;
+
+        Instance.StartCoroutine(ChannelingProcess(energyHolder, channelEffectPos));
     }
     
-    public void DecreaseEnergy(float ammount)
+    private static IEnumerator ChannelingProcess(IEnergyHoldable energyHolder,
+        Vector3 channelEffectPos)
     {
-        if (_currentEnergy - ammount >= 0)
-            _currentEnergy -= ammount;
-        else ResetEnergy();
+        _isChannelingEnergy = true;
         
-        UpdateEnergySlider();
+        if (Instance.EnergyContainer.IsHavingEnergy())
+        {
+            //TODO: Add chaneling animation and functionality!!!
+            yield return null;
+        }
+        
+        _isChannelingEnergy = false;
     }
-
-    public void ResetEnergy() => _currentEnergy = 0;
-
-    private void UpdateEnergySlider() => _energySlider.value = _currentEnergy;
 }
