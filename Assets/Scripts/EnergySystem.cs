@@ -1,48 +1,63 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class EnergySystem : MonoBehaviour, IEnergyHoldable
 {
+    [Header("UI")]
     [SerializeField] private Slider _energySlider;
-    [SerializeField] private float _maxEnergy = 100f;
-    public EnergyContainer EnergyContainer { get; private set; }
+    
+    [Header("Energy Storage")]
+    [SerializeField] private EnergyContainer _energyContainer;
+    public EnergyContainer EnergyContainer => _energyContainer;
+
+    [Header("Energy Channeling")] [SerializeField]
+    private float _delayBetweenChanneling = 1;
     public static float EnergyAmountPerChannel = 15f;
-    private static EnergySystem Instance;
     private static bool _isChannelingEnergy;
 
+    private static EnergySystem Instance;
+    
     private void Awake()
     {
         if (Instance == null) Instance = this;
-        else Destroy(Instance);
     }
 
     private void Start()
     {
-        _energySlider.maxValue = _maxEnergy;
-        this.EnergyContainer = new EnergyContainer(0, 0, _maxEnergy);
+        _energySlider.maxValue = _energyContainer.MaxEnergy;
     }
 
-    public static void ChannelEnnergyToPlayer(IEnergyHoldable energyHolder,
-        Vector3 channelEffectPos)
+    public static void ChannelEnnergyToPlayer(IEnergyHoldable energyHolder, Vector3 channelEffectPos)
     {
         if(_isChannelingEnergy) return;
 
         Instance.StartCoroutine(ChannelingProcess(energyHolder, channelEffectPos));
     }
     
-    private static IEnumerator ChannelingProcess(IEnergyHoldable energyHolder,
-        Vector3 channelEffectPos)
+    private static IEnumerator ChannelingProcess(IEnergyHoldable energyHolder, Vector3 channelEffectPos)
     {
         _isChannelingEnergy = true;
         
-        if (Instance.EnergyContainer.IsHavingEnergy())
+        if (energyHolder.EnergyContainer.IsHavingEnergy())
         {
-            //TODO: Add chaneling animation and functionality!!!
-            yield return null;
+            if (energyHolder.EnergyContainer.DecreaseEnergy(EnergyAmountPerChannel))
+            {
+                Instance.EnergyContainer.IncreaseEnergy(EnergyAmountPerChannel);
+                Debug.Log($"Channeling... {Instance.EnergyContainer.CurrentEnergy}");
+            }
+            else
+            {
+                float remainingEnergy = energyHolder.EnergyContainer.MaxEnergy % EnergyAmountPerChannel;
+                Instance.EnergyContainer.IncreaseEnergy(remainingEnergy);
+            }
+            
+            Instance.UpdateEnergySlider();
+            yield return new WaitForSeconds(Instance._delayBetweenChanneling);
         }
         
         _isChannelingEnergy = false;
     }
+
+    private void UpdateEnergySlider() => _energySlider.value = Instance.EnergyContainer.CurrentEnergy;
 }
