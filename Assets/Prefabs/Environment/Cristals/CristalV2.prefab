@@ -91,6 +91,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 136093427521104944, guid: ec62c439784fb344d90bccea69a64591, type: 3}
+      propertyPath: _energyContainer._maxEnergy
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 136093427521104944, guid: ec62c439784fb344d90bccea69a64591, type: 3}
+      propertyPath: _energyContainer._currentEnergy
+      value: 70
+      objectReference: {fileID: 0}
     - target: {fileID: 4819613100346789487, guid: ec62c439784fb344d90bccea69a64591, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

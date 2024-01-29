@@ -4925,7 +4925,7 @@ GameObject:
   - component: {fileID: 136093427521104944}
   - component: {fileID: 5252935540742007904}
   m_Layer: 3
-  m_Name: Cristal
+  m_Name: M_Cristal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4961,7 +4961,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dae8bb8276a5e44fb3f17229aeff07a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _energyAmount: 50
+  _energyContainer:
+    _currentEnergy: 0
+    _maxEnergy: 0
+    _minEnergy: 0
 --- !u!65 &5252935540742007904
 BoxCollider:
   m_ObjectHideFlags: 0
