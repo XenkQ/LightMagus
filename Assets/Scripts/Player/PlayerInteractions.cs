@@ -7,8 +7,8 @@ public class PlayerInteractions : MonoBehaviour
     
     private void Start()
     {
-        Pointer.OnPointerShortInteraction += ShortInteractionHandler;
-        Pointer.OnPointerLongInteraction += LongInteractionHandler;
+        PlayerInputHandler.Instance.AddFunctionToOnPointerClick(ShortInteractionHandler);
+        PlayerInputHandler.Instance.AddFunctionToOnPointerLongInteraction(LongInteractionHandler);
     }
     
     private void ShortInteractionHandler(GameObject interactingWith)
@@ -22,6 +22,6 @@ public class PlayerInteractions : MonoBehaviour
     {
         if (!MyUtils.Layer.IsLayerInLayerMask(interactingWith.layer, interactionMask)) return;
 
-        interactingWith.GetComponent<IInteractable>().Interact();
+        interactingWith.GetComponent<IInteractable>().LongInteraction();
     }
 }

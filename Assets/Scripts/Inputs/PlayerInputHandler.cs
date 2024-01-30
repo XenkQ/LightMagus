@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,15 +9,15 @@ public class PlayerInputHandler : MonoBehaviour
 
     private InputAction moveAction;
     private InputAction lookAction;
-    private InputAction pointerShortInteraction;
+    private InputAction OnPointerClick;
     private InputAction pointerLongInteraction;
     
     public Vector2 MoveInput { get; private set; }
     public Vector2 LookInput { get; private set; }
-    public bool IsPointerShortInteraction { get; private set; }
     public bool IsPointerLongInteraction { get; private set; }
     
     public static PlayerInputHandler Instance { get; private set; }
+    private event PlayerInteractions.InteractionDelegate OnPointerLongInteraction;
     
     private void Awake()
     {
@@ -35,12 +36,18 @@ public class PlayerInputHandler : MonoBehaviour
 
         RegisterInputActions();
     }
+    
+    private void Update()
+    {
+        if (IsPointerLongInteraction)
+            OnPointerLongInteraction?.Invoke(Pointer.Instance.GetHoveredGameObject());
+    }
 
     private void SetActionsBindings()
     {
         moveAction = _customInputs.Player.Movement;
         lookAction = _customInputs.Player.Look;
-        pointerShortInteraction = _customInputs.Player.PointerShortInteraction;
+        OnPointerClick = _customInputs.Player.OnPointerClick;
         pointerLongInteraction = _customInputs.Player.PointerLongInteraction;
     }
 
@@ -54,16 +61,13 @@ public class PlayerInputHandler : MonoBehaviour
         
         pointerLongInteraction.performed += context => IsPointerLongInteraction = true;
         pointerLongInteraction.canceled += context => IsPointerLongInteraction = false;
-        
-        pointerShortInteraction.performed += context => IsPointerShortInteraction = true;
-        pointerShortInteraction.canceled += context => IsPointerShortInteraction = false;
     }
 
     private void OnDisable()
     {
         moveAction.Disable();
         lookAction.Disable();
-        pointerShortInteraction.Disable();
+        OnPointerClick.Disable();
         pointerLongInteraction.Disable();
     }
 
@@ -71,7 +75,27 @@ public class PlayerInputHandler : MonoBehaviour
     {
         moveAction.Enable();
         lookAction.Enable();
-        pointerShortInteraction.Enable();
+        OnPointerClick.Enable();
         pointerLongInteraction.Enable();
+    }
+
+    public void AddFunctionToOnPointerClick(Action func)
+    {
+        OnPointerClick.performed += (context) => func();
+    }
+    
+    public void AddFunctionToOnPointerClick(PlayerInteractions.InteractionDelegate func)
+    {
+        OnPointerClick.performed += (context) => func(Pointer.Instance.GetHoveredGameObject());
+    }
+    
+    public void AddFunctionToOnPointerLongInteraction(Action func)
+    {
+        OnPointerLongInteraction += (context) => func();
+    }
+    
+    public void AddFunctionToOnPointerLongInteraction(PlayerInteractions.InteractionDelegate func)
+    {
+        OnPointerLongInteraction += func;
     }
 }

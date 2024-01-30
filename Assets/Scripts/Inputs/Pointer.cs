@@ -1,34 +1,26 @@
+using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Pointer : MonoBehaviour
 {
     [SerializeField] private float worldHeightOffset = 0;
     public static Vector3 OnScreenWorldPosition { get; private set; }
     private Camera _mainCamera;
-    
-    public static event PlayerInteractions.InteractionDelegate OnPointerShortInteraction;
-    public static event PlayerInteractions.InteractionDelegate OnPointerLongInteraction;
+    public static Pointer Instance;
 
     private void Awake()
     {
         _mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+        Instance = this;
     }
 
     private void FixedUpdate()
     {
         UpdateOnScreenWorldPosition();
     }
-    
-    private void Update()
-    {
-        if(PlayerInputHandler.Instance.IsPointerShortInteraction)
-            OnPointerShortInteraction?.Invoke(GetHoveredGameObject());
-        
-        if(PlayerInputHandler.Instance.IsPointerLongInteraction)
-            OnPointerLongInteraction?.Invoke(GetHoveredGameObject());
-    }
 
-    private GameObject GetHoveredGameObject()
+    public GameObject GetHoveredGameObject()
     {
         RaycastHit hit;
         Ray ray = _mainCamera.ScreenPointToRay(PlayerInputHandler.Instance.LookInput);
