@@ -12634,6 +12634,34 @@ PrefabInstance:
       propertyPath: _energyContainer._currentEnergy
       value: 80
       objectReference: {fileID: 0}
+    - target: {fileID: 6437451112336619444, guid: 696d8775693c7a240a16da52b945db84, type: 3}
+      propertyPath: _energyContainer._lowEnergyTreshold
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6437451112336619444, guid: 696d8775693c7a240a16da52b945db84, type: 3}
+      propertyPath: _energyContainer._highEnergyTreshold
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6437451112336619444, guid: 696d8775693c7a240a16da52b945db84, type: 3}
+      propertyPath: _energyContainer._mediumEnergyTreshold
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6437451112336619444, guid: 696d8775693c7a240a16da52b945db84, type: 3}
+      propertyPath: _energyLevelMultipliers._lowEnergyMultiplier
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6437451112336619444, guid: 696d8775693c7a240a16da52b945db84, type: 3}
+      propertyPath: _energyLevelMultipliers._highEnergyMultiplier
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6437451112336619444, guid: 696d8775693c7a240a16da52b945db84, type: 3}
+      propertyPath: _energyLevelMultipliers._emptyEnergyMultiplier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6437451112336619444, guid: 696d8775693c7a240a16da52b945db84, type: 3}
+      propertyPath: _energyLevelMultipliers._mediumEnergyMultiplier
+      value: 0.35
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -22252,7 +22280,9 @@ MonoBehaviour:
   _energyContainer:
     _currentEnergy: 0
     _maxEnergy: 100
-    _minEnergy: 0
+    _lowEnergyTreshold: 0
+    _mediumEnergyTreshold: 0
+    _highEnergyTreshold: 0
   _delayBetweenChanneling: 1
 --- !u!1 &1915780610
 GameObject:

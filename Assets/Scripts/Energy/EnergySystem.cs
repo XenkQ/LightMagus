@@ -30,6 +30,7 @@ public class EnergySystem : MonoBehaviour, IEnergyHoldable
     private void Start()
     {
         _energySlider.maxValue = _energyContainer.MaxEnergy;
+        _energyContainer.RefreshCurrentEnergyLevel();
     }
 
     private void Update()

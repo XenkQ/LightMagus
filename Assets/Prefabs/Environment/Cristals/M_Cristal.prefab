@@ -133,7 +133,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -4961,6 +4961,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dae8bb8276a5e44fb3f17229aeff07a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _particleSystem: {fileID: 4498709255650698768}
   _energyContainer:
     _currentEnergy: 0
     _maxEnergy: 0

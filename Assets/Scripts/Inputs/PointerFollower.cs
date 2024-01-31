@@ -5,7 +5,7 @@ public class PointerFollower : MonoBehaviour
     [SerializeField] private float _maxDistanceFromTarget = 20f;
     [SerializeField] private Transform _target;
 
-    private void FixedUpdate()
+    private void LateUpdate()
     {
         FollowPointerToMaxDistanceFromTarget(_maxDistanceFromTarget, _target);
     }
