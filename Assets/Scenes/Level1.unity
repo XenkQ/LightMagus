@@ -12618,6 +12618,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CristalV3 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6173372061436392007, guid: 696d8775693c7a240a16da52b945db84, type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6437451112336619444, guid: 696d8775693c7a240a16da52b945db84, type: 3}
       propertyPath: _maxEnergy
       value: 100

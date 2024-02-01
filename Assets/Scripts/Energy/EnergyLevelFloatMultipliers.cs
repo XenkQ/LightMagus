@@ -31,6 +31,7 @@ public class EnergyLevelFloatMultipliers
         EnergyLevels.LowEnergy => LowEnergyMultiplier,
         EnergyLevels.MediumEnergy => MediumEnergyMultiplier,
         EnergyLevels.HighEnergy => HighEnergyMultiplier,
-        EnergyLevels.MaxEnergy => MaxEnergyMultiplier
+        EnergyLevels.MaxEnergy => MaxEnergyMultiplier,
+        _ => 0
     };
 }

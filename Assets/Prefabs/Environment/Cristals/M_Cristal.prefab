@@ -51,7 +51,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -4923,6 +4923,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4819613100346789487}
   - component: {fileID: 136093427521104944}
+  - component: {fileID: 2003102913924125134}
   - component: {fileID: 5252935540742007904}
   m_Layer: 3
   m_Name: M_Cristal
@@ -4961,11 +4962,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dae8bb8276a5e44fb3f17229aeff07a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _particleSystem: {fileID: 4498709255650698768}
   _energyContainer:
     _currentEnergy: 0
     _maxEnergy: 0
-    _minEnergy: 0
+    _lowEnergyTreshold: 0.2
+    _mediumEnergyTreshold: 0.5
+    _highEnergyTreshold: 0.8
+  _metallicMultipliersRelatedToEnergyLevel:
+    _emptyEnergyMultiplier: 1
+    _lowEnergyMultiplier: 0.7
+    _mediumEnergyMultiplier: 0.35
+    _highEnergyMultiplier: 0.15
+    _maxEnergyMultiplier: 0
+  _willDoSthAfterCharge: 0
+--- !u!114 &2003102913924125134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8507257570077453274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe6b5451a2274ccbb9cad3746cefbe85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _particleSystem: {fileID: 4498709255650698768}
+  _burstOverTimeMultipliers:
+    _emptyEnergyMultiplier: 0
+    _lowEnergyMultiplier: 0.2
+    _mediumEnergyMultiplier: 0.5
+    _highEnergyMultiplier: 0.8
+    _maxEnergyMultiplier: 1
 --- !u!65 &5252935540742007904
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5038,7 +5066,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1

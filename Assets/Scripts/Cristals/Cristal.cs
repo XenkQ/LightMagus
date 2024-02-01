@@ -7,16 +7,14 @@ public class Cristal : MonoBehaviour, IShortInteractable, ILongInteractable, IEn
     [Header("Energy")]
     [SerializeField] private EnergyContainer _energyContainer;
     public EnergyContainer EnergyContainer => _energyContainer;
-    [SerializeField] private EnergyLevelFloatMultipliers _energyLevelMultipliers;
+    [SerializeField] private EnergyLevelFloatMultipliers _metallicMultipliersRelatedToEnergyLevel;
     
-    [SerializeField] private ParticleSystem _particleSystem;
     [SerializeField] private bool _willDoSthAfterCharge;
-
     private Material[] _materials;
     
     private void Awake()
     {
-        _materials = MyUtils.Materials.GetAllMaterialsFromChildrens(gameObject);
+        _materials = Materials.GetMaterialsFromChildrens(gameObject);
     }
 
     private void Start()
@@ -24,22 +22,11 @@ public class Cristal : MonoBehaviour, IShortInteractable, ILongInteractable, IEn
         _energyContainer.RefreshCurrentEnergyLevel();
     }
 
-    public void Update()
-    {
-        if (CanPlayParticleSystem()) _particleSystem.Play();
-    }
-
-    private bool CanPlayParticleSystem()
-    {
-        return (_particleSystem.isPaused || !_particleSystem.isPlaying) && _energyContainer.IsHavingEnergy();
-    }
-
     private void RefreshColorRelatedToEnergyLevel()
     {
         EnergyLevels energyLevel = _energyContainer.GetCurrentEnergyLevel();
-        float multiplierValue = _energyLevelMultipliers.GetValueRelatedToEnergyLevel(energyLevel);
-        Materials.ChangeMaterialsMetalicMapValue(_materials, multiplierValue);
-        //TODO: naprawić zmianę metalu materiału
+        float multiplierValue = _metallicMultipliersRelatedToEnergyLevel.GetValueRelatedToEnergyLevel(energyLevel);
+        Materials.ChangeMaterialsMetallicMapValue(_materials, multiplierValue);
     }
 
     public void OnLongInteraction()
