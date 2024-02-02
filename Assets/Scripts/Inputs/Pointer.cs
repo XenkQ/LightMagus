@@ -1,10 +1,8 @@
-using System;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class Pointer : MonoBehaviour
 {
-    [SerializeField] private float worldHeightOffset = 0;
+    [SerializeField] private float _worldHeightOffset = 0;
     public static Vector3 OnScreenWorldPosition { get; private set; }
     private Camera _mainCamera;
     public static Pointer Instance;
@@ -36,7 +34,7 @@ public class Pointer : MonoBehaviour
         OnScreenWorldPosition = _mainCamera.ScreenToWorldPoint(PlayerInputHandler.Instance.LookInput);
         OnScreenWorldPosition = new Vector3(
             OnScreenWorldPosition.x,
-            worldHeightOffset,
+            _worldHeightOffset,
             OnScreenWorldPosition.z
         );
     }
