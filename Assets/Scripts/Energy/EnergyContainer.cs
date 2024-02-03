@@ -34,26 +34,20 @@ public class EnergyContainer
         RefreshCurrentEnergyLevel();
     }
 
-    public bool IncreaseEnergy(float amount)
+    public void IncreaseEnergy(float amount)
     {
-        bool canIncreaseEnergy = _currentEnergy + amount <= _maxEnergy;
-        
-        if (canIncreaseEnergy) _currentEnergy += amount;
+        if (_currentEnergy + amount <= _maxEnergy) _currentEnergy += amount;
         else _currentEnergy = _maxEnergy;
         
         RefreshCurrentEnergyLevel();
-        return canIncreaseEnergy;
     }
 
-    public bool DecreaseEnergy(float amount)
+    public void DecreaseEnergy(float amount)
     {
-        bool canDecreaseEnergy = _currentEnergy - amount >= 0;
-        
-        if (canDecreaseEnergy) _currentEnergy -= amount;
+        if (_currentEnergy - amount >= 0) _currentEnergy -= amount;
         else ResetEnergy();
         
         RefreshCurrentEnergyLevel();
-        return canDecreaseEnergy;
     }
     
     public void RefreshCurrentEnergyLevel()
@@ -74,5 +68,6 @@ public class EnergyContainer
     }
 
     public bool IsHavingEnergy() => _currentEnergyLevel != EnergyLevels.EmptyEnergy;
+    public bool IsHavingEnergy(float amount) => _currentEnergy >= amount;
     public bool IsFullyCharged() => _currentEnergyLevel == EnergyLevels.MaxEnergy;
 }

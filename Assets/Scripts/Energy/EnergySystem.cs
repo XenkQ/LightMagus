@@ -54,21 +54,19 @@ public class EnergySystem : MonoBehaviour, IEnergyHoldable
     {
         _isChannelingEnergy = true;
         
-        if (energyHolder.EnergyContainer.IsHavingEnergy())
+        if (energyHolder.EnergyContainer.IsHavingEnergy(EnergyAmountPerChannel))
         {
-            if (energyHolder.EnergyContainer.DecreaseEnergy(EnergyAmountPerChannel))
-            {
-                Instance.EnergyContainer.IncreaseEnergy(EnergyAmountPerChannel);
-            }
-            else
-            {
-                float remainingEnergy = energyHolder.EnergyContainer.MaxEnergy % EnergyAmountPerChannel;
-                Instance.EnergyContainer.IncreaseEnergy(remainingEnergy);
-            }
-            
-            Instance.UpdateEnergySlider();
-            yield return new WaitForSeconds(Instance._delayBetweenChanneling);
+            energyHolder.EnergyContainer.DecreaseEnergy(EnergyAmountPerChannel);
+            Instance.EnergyContainer.IncreaseEnergy(EnergyAmountPerChannel);
         }
+        else
+        {
+            float remainingEnergy = energyHolder.EnergyContainer.MaxEnergy % EnergyAmountPerChannel;
+            Instance.EnergyContainer.IncreaseEnergy(remainingEnergy);
+        }
+        
+        Instance.UpdateEnergySlider();
+        yield return new WaitForSeconds(Instance._delayBetweenChanneling);
         
         _isChannelingEnergy = false;
     }

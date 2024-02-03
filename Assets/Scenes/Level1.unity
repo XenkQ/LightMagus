@@ -8176,9 +8176,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d0eb1ca0cdbebd419d5ba3e091fd28e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _lightAttackEnergyCost: 8
+  _lightAttackDamage: 10
   _lightPointsParent: {fileID: 734521714}
   _lightPointPrefab: {fileID: 7865405933203164479, guid: 58533bae5de644e458b1869b9481d92b, type: 3}
   _ligthPoints: []
+  _canPlaceLightPointsOn:
+    serializedVersion: 2
+    m_Bits: 128
   _lightPointsMask:
     serializedVersion: 2
     m_Bits: 64
@@ -22370,7 +22375,7 @@ GameObject:
   - component: {fileID: 1897964222}
   m_Layer: 0
   m_Name: EnergySystem
-  m_TagString: Untagged
+  m_TagString: EnergySystem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

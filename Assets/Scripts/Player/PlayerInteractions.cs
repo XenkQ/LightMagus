@@ -1,3 +1,5 @@
+using System;
+using MyUtils;
 using UnityEngine;
 
 public class PlayerInteractions : MonoBehaviour
@@ -13,14 +15,14 @@ public class PlayerInteractions : MonoBehaviour
     
     private void ShortInteractionHandler(GameObject interactingWith)
     {
-        if (!MyUtils.Layer.IsLayerInLayerMask(interactingWith.layer, interactionMask)) return;
+        if (!interactionMask.IsContainingLayer(interactingWith.layer)) return;
         
         Debug.Log("Short Interaction: " + interactingWith.name);
     }
     
     private void LongInteractionHandler(GameObject interactingWith)
     {
-        if (!MyUtils.Layer.IsLayerInLayerMask(interactingWith.layer, interactionMask)) return;
+        if (!interactionMask.IsContainingLayer(interactingWith.layer)) return;
 
         interactingWith.GetComponent<ILongInteractable>().OnLongInteraction();
     }
