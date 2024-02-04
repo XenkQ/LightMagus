@@ -8180,10 +8180,10 @@ MonoBehaviour:
   _lightAttackDamage: 10
   _lightPointsParent: {fileID: 734521714}
   _lightPointPrefab: {fileID: 7865405933203164479, guid: 58533bae5de644e458b1869b9481d92b, type: 3}
-  _ligthPoints: []
   _canPlaceLightPointsOn:
     serializedVersion: 2
     m_Bits: 128
+  _maxDistanceToConnectPoints: 12
   _lightPointsMask:
     serializedVersion: 2
     m_Bits: 64

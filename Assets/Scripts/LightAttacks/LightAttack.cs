@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using MyUtils;
 using UnityEngine;
@@ -13,8 +12,9 @@ public class LightAttack : MonoBehaviour
     [Header("Lighting Points")]
     [SerializeField] private Transform _lightPointsParent;
     [SerializeField] private LightPoint _lightPointPrefab;
-    [SerializeField] private List<LightPoint> _ligthPoints;
     [SerializeField] private LayerMask _canPlaceLightPointsOn;
+    [SerializeField] private float _maxDistanceToConnectPoints;
+    private List<ILightConnectable> _attackPoints;
     
     [Header("Snapping")]
     [SerializeField] private LayerMask _lightPointsMask;
@@ -25,14 +25,11 @@ public class LightAttack : MonoBehaviour
 
     [Header("OtherCompontents")] 
     private EnergySystem _energySystem;
-    
-    //When create mesh? First replace list and create linked list,
-    //then after adding point check if there is a loop inside linked list,
-    //if is create mesh from points in linked list :))
 
     private void Awake()
     {
         _energySystem = GameObject.FindGameObjectWithTag("EnergySystem").GetComponent<EnergySystem>();
+        _attackPoints = new List<ILightConnectable>();
     }
 
     private void Start()
@@ -45,27 +42,38 @@ public class LightAttack : MonoBehaviour
     {
         if (CanPlaceLightAttackPoint())
         {
-            LightPoint point = GetClosestPointToSnapIfExists();
+           ILightConnectable snapPoint = GetLightPointInRadiusIfExists(_snappingDistance);
 
-            if (point != null)
+            if (snapPoint is not null)
             {
                 //TO DO: Changing list to linked list and creating damaging mesh on vertices where is loop
                 //and add some kind of visual representation before snap
                 Debug.Log("Snap");
+                ConnectToLastAttackPoint(snapPoint);
+                _lineRenderer.AddNewPoint(snapPoint.CurrentPosition);
             }
             else
             {
-                point = Instantiate(
+                ILightConnectable pointToConnectLine = GetLightPointInRadiusIfExists(_maxDistanceToConnectPoints);
+                ILightConnectable newPoint= Instantiate(
                     _lightPointPrefab,
                     Pointer.OnScreenWorldPosition,
                     Quaternion.identity,
                     _lightPointsParent
                 );
+                
+                if (pointToConnectLine is null)
+                {
+                    _lineRenderer.positionCount = 0;
+                    _attackPoints.Clear();
+                }
 
-                _ligthPoints.Add(point);
+                ConnectToLastAttackPoint(newPoint);
+                
+                _attackPoints.Add(newPoint);
+                _lineRenderer.AddNewPoint(newPoint.CurrentPosition);
             }
-
-            _lineRenderer.AddNewPoint(point.transform.position);
+            
             _energySystem.EnergyContainer.DecreaseEnergy(_lightAttackEnergyCost);
         }
     }
@@ -77,12 +85,12 @@ public class LightAttack : MonoBehaviour
             && _energySystem.EnergyContainer.IsHavingEnergy(_lightAttackEnergyCost);
     }
 
-    private LightPoint GetClosestPointToSnapIfExists()
+    private ILightConnectable GetLightPointInRadiusIfExists(float radius)
     {
-        LightPoint lightPoint = null;
+        ILightConnectable lightPoint = null;
         
         Collider[] colliders = Physics.OverlapSphere(Pointer.OnScreenWorldPosition,
-            _snappingDistance,
+            radius,
             _lightPointsMask,
             QueryTriggerInteraction.UseGlobal
         );
@@ -105,5 +113,11 @@ public class LightAttack : MonoBehaviour
         }
 
         return lightPoint;
+    }
+    
+    private void ConnectToLastAttackPoint(ILightConnectable newPoint)
+    {
+        if (_attackPoints.Count > 0)
+            _attackPoints[^1].IsConnectedTo = newPoint;
     }
 }
