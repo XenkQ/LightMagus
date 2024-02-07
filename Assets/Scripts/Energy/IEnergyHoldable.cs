@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public interface IEnergyHoldable
+namespace Energy
 {
-    EnergyContainer EnergyContainer { get;}
+    public interface IEnergyHoldable
+    {
+        EnergyContainer EnergyContainer { get; }
+    }
 }

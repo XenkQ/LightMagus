@@ -1,42 +1,34 @@
-using System;
+using Energy;
 using MyUtils;
 using UnityEngine;
 
-public class Cristal : MonoBehaviour, IShortInteractable, ILongInteractable, IEnergyHoldable
+namespace Cristals
 {
-    [Header("Energy")]
-    [SerializeField] private EnergyContainer _energyContainer;
-    public EnergyContainer EnergyContainer => _energyContainer;
-    [SerializeField] private EnergyLevelFloatMultipliers _metallicMultipliersRelatedToEnergyLevel;
-    
-    [SerializeField] private bool _willDoSthAfterCharge;
-    private Material[] _materials;
-    
-    private void Awake()
+    public class Cristal : MonoBehaviour, IEnergyHoldable
     {
-        _materials = Materials.GetMaterialsFromChildrens(gameObject);
-    }
+        [Header("Energy")]
+        [SerializeField] protected EnergyContainer _energyContainer;
 
-    private void Start()
-    {
-        _energyContainer.RefreshCurrentEnergyLevel();
-    }
+        public EnergyContainer EnergyContainer => _energyContainer;
+        [SerializeField] protected EnergyLevelFloatMultipliers _metallicMultipliersRelatedToEnergyLevel;
 
-    private void RefreshColorRelatedToEnergyLevel()
-    {
-        EnergyLevels energyLevel = _energyContainer.GetCurrentEnergyLevel();
-        float multiplierValue = _metallicMultipliersRelatedToEnergyLevel.GetValueRelatedToEnergyLevel(energyLevel);
-        Materials.ChangeMaterialsMetallicMapValue(_materials, multiplierValue);
-    }
+        private Material[] _materials;
 
-    public void OnLongInteraction()
-    {
-        EnergySystem.ChannelEnnergyToPlayer(this, transform.position);
-        RefreshColorRelatedToEnergyLevel();
-    }
+        protected virtual void Awake()
+        {
+            _materials = Materials.GetMaterialsFromChildrens(gameObject);
+        }
 
-    public void OnShortInteraction()
-    {
-        throw new NotImplementedException();
+        protected virtual void Start()
+        {
+            _energyContainer.RefreshCurrentEnergyLevel();
+        }
+
+        protected void RefreshColorRelatedToEnergyLevel()
+        {
+            EnergyLevels energyLevel = _energyContainer.GetCurrentEnergyLevel();
+            float multiplierValue = _metallicMultipliersRelatedToEnergyLevel.GetValueRelatedToEnergyLevel(energyLevel);
+            Materials.ChangeMaterialsMetallicMapValue(_materials, multiplierValue);
+        }
     }
 }

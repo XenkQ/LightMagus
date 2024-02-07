@@ -1,8 +1,11 @@
-﻿public enum EnergyLevels
+﻿namespace Energy
 {
-    EmptyEnergy,
-    LowEnergy,
-    MediumEnergy,
-    HighEnergy,
-    MaxEnergy
+    public enum EnergyLevels
+    {
+        EmptyEnergy,
+        LowEnergy,
+        MediumEnergy,
+        HighEnergy,
+        MaxEnergy
+    }
 }

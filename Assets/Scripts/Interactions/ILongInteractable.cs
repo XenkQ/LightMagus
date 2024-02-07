@@ -1,4 +1,7 @@
-﻿public interface ILongInteractable
+﻿namespace Interactions
 {
-    void OnLongInteraction();
+    public interface ILongInteractable
+    {
+        void OnLongInteraction();
+    }
 }

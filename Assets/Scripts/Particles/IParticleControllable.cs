@@ -1,7 +1,10 @@
 using UnityEngine;
 
-public interface IParticleControllable
+namespace Particles
 {
-    bool CanPlayParticleSystem();
-    bool CanStopParticleSystem();
+    public interface IParticleControllable
+    {
+        bool CanPlayParticleSystem();
+        bool CanStopParticleSystem();
+    }
 }

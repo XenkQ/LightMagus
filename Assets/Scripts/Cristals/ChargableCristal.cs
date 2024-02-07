@@ -1,15 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
+using Interactions;
 using UnityEngine;
 
-[RequireComponent(typeof(Cristal))]
-public class ChargableCristal : MonoBehaviour, IShortInteractable, IEnergyHoldable
+namespace Cristals
 {
-    public EnergyContainer EnergyContainer { get; }
-    private EnergyContainer _energyContainer;
-    
-    public void OnShortInteraction()
+    public class ChargableCristal : Cristal, IShortInteractable
     {
-        throw new System.NotImplementedException();
+        public void OnShortInteraction()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

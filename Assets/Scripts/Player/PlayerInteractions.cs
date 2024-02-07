@@ -1,29 +1,34 @@
 using System;
+using Inputs;
+using Interactions;
 using MyUtils;
 using UnityEngine;
 
-public class PlayerInteractions : MonoBehaviour
+namespace Player
 {
-    [SerializeField] private LayerMask interactionMask;
-    public delegate void InteractionDelegate(GameObject interactingWith);
-    
-    private void Start()
+    public class PlayerInteractions : MonoBehaviour
     {
-        PlayerInputHandler.Instance.AddFunctionToOnPointerClick(ShortInteractionHandler);
-        PlayerInputHandler.Instance.AddFunctionToOnPointerLongInteraction(LongInteractionHandler);
-    }
-    
-    private void ShortInteractionHandler(GameObject interactingWith)
-    {
-        if (!interactionMask.IsContainingLayer(interactingWith.layer)) return;
-        
-        Debug.Log("Short Interaction: " + interactingWith.name);
-    }
-    
-    private void LongInteractionHandler(GameObject interactingWith)
-    {
-        if (!interactionMask.IsContainingLayer(interactingWith.layer)) return;
+        [SerializeField] private LayerMask interactionMask;
+        public delegate void InteractionDelegate(GameObject interactingWith);
 
-        interactingWith.GetComponent<ILongInteractable>().OnLongInteraction();
+        private void Start()
+        {
+            PlayerInputHandler.Instance.AddFunctionToOnPointerClick(ShortInteractionHandler);
+            PlayerInputHandler.Instance.AddFunctionToOnPointerLongInteraction(LongInteractionHandler);
+        }
+
+        private void ShortInteractionHandler(GameObject interactingWith)
+        {
+            if (!interactionMask.IsContainingLayer(interactingWith.layer)) return;
+
+            Debug.Log("Short Interaction: " + interactingWith.name);
+        }
+
+        private void LongInteractionHandler(GameObject interactingWith)
+        {
+            if (!interactionMask.IsContainingLayer(interactingWith.layer)) return;
+
+            interactingWith.GetComponent<ILongInteractable>().OnLongInteraction();
+        }
     }
 }

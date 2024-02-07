@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 
-public interface ILightConnectable
+namespace LightAttacks
 {
-    bool CanConnect { get; set; }
-    ILightConnectable IsConnectedTo { get; set; }
-    public Vector3 CurrentPosition { get; }
+    public interface ILightConnectable
+    {
+        bool CanConnect { get; set; }
+        ILightConnectable IsConnectedTo { get; set; }
+        Vector3 CurrentPosition { get; }
+    }
 }

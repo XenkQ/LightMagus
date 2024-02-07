@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public interface IShortInteractable
+namespace Interactions
 {
-    void OnShortInteraction();
+    public interface IShortInteractable
+    {
+        void OnShortInteraction();
+    }
 }

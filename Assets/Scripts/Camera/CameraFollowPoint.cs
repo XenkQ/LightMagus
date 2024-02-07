@@ -1,6 +1,7 @@
+using Inputs;
 using UnityEngine;
 
-public class PointerFollower : MonoBehaviour
+public class CameraFollowPoint : MonoBehaviour
 {
     [SerializeField] private float _maxDistanceFromTarget = 20f;
     [SerializeField] private Transform _target;

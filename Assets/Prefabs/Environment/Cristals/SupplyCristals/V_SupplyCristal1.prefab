@@ -186,6 +186,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: 0.7023063
       objectReference: {fileID: 0}
+    - target: {fileID: 2750607916154093048, guid: ec62c439784fb344d90bccea69a64591, type: 3}
+      propertyPath: _energyContainer._maxEnergy
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2750607916154093048, guid: ec62c439784fb344d90bccea69a64591, type: 3}
+      propertyPath: _energyContainer._currentEnergy
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 4819613100346789487, guid: ec62c439784fb344d90bccea69a64591, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -236,7 +244,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8507257570077453274, guid: ec62c439784fb344d90bccea69a64591, type: 3}
       propertyPath: m_Name
-      value: CristalV3
+      value: V_SupplyCristal1
       objectReference: {fileID: 0}
     - target: {fileID: 8598175060555503098, guid: ec62c439784fb344d90bccea69a64591, type: 3}
       propertyPath: m_LocalScale.x
