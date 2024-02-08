@@ -51,50 +51,11 @@ namespace LightAttacks
 
                 if (snapPoint is not null && snapPoint.CanConnect)
                 {
-                    //TODO: Changing list to linked list and creating damaging mesh on vertices where is loop
-                    //and add some kind of visual representation before snap
                     ConnectToLastAttackPoint(snapPoint);
                     _lineRenderer.AddNewPoint(snapPoint.CurrentPosition);
 
                     ILightConnectable[] connectedPoints = GetAttackPointsConnectedInLoop();
-                    if (connectedPoints is not null)
-                    {
-                        GameObject gameObject = new GameObject("LightAttackArea");
-                        var meshFilter = gameObject.AddComponent<MeshFilter>();
-                        var meshRenderer = gameObject.AddComponent<MeshRenderer>();
-
-                        Mesh mesh = new Mesh();
-                        Vector3[] vertices = new Vector3[connectedPoints.Length];
-                        int[] triangles = new int[3 * (connectedPoints.Length - 2)];
-
-                        for (int i = 0; i < connectedPoints.Length; i++)
-                        {
-                            vertices[i] = connectedPoints[i].CurrentPosition;
-                            connectedPoints[i].CanConnect = false;
-                        }
-
-                        int core = 0, current = 0;
-                        for (int i = 0; i < triangles.Length; i++)
-                        {
-                            if (i > 1 && i % 3 == 0)
-                            {
-                                triangles[triangles.Length - 1 - i] = core;
-                                current--;
-                            }
-                            else triangles[triangles.Length - 1 - i] = current++;
-                        }
-
-                        Debug.Log(string.Join(" ", triangles));
-
-                        mesh.vertices = vertices;
-                        mesh.triangles = triangles;
-                        meshRenderer.material = _lightAttackMaterial;
-                        mesh.RecalculateNormals();
-                        meshFilter.mesh = mesh;
-
-                        _lineRenderer.positionCount = 0;
-                        _attackPoints.Clear();
-                    }
+                    //TODO: Add code creating custom meshesh from points (current in tests)
                 }
                 else
                 {

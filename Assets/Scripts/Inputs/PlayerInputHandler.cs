@@ -82,9 +82,9 @@ namespace Inputs
             pointerLongInteraction.Enable();
         }
 
-        public void AddFunctionToOnPointerClick(Action func)
+        public void AddFunctionToOnPointerClick(Action action)
         {
-            OnPointerClick.performed += (context) => func();
+            OnPointerClick.performed += (context) => action();
         }
 
         public void AddFunctionToOnPointerClick(PlayerInteractions.InteractionDelegate func)
@@ -92,9 +92,9 @@ namespace Inputs
             OnPointerClick.performed += (context) => func(Pointer.Instance.GetHoveredGameObject());
         }
 
-        public void AddFunctionToOnPointerLongInteraction(Action func)
+        public void AddFunctionToOnPointerLongInteraction(Action action)
         {
-            OnPointerLongInteraction += (context) => func();
+            OnPointerLongInteraction += (context) => action();
         }
 
         public void AddFunctionToOnPointerLongInteraction(PlayerInteractions.InteractionDelegate func)
