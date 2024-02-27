@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using TriangleNet.Geometry;
+using TriangleNet.Meshing;
 
 public class GenerateMeshFromPoint : MonoBehaviour
 {
@@ -11,7 +13,6 @@ public class GenerateMeshFromPoint : MonoBehaviour
     [SerializeField] private LightPoint _pointPrefab;
     [SerializeField] private Material _lightMat;
     [SerializeField] private List<LightPoint> _currentPoints;
-    [SerializeField] private bool _generateLogMessage = false;
     private GameObject _currentMeshObject;
 
     private void Update()
@@ -32,47 +33,39 @@ public class GenerateMeshFromPoint : MonoBehaviour
         var meshFilter = _currentMeshObject.AddComponent<MeshFilter>();
         var meshRenderer = _currentMeshObject.AddComponent<MeshRenderer>();
 
-        Mesh mesh = new Mesh();
-        Vector3[] vertices = new Vector3[_currentPoints.Count];
-        int[] triangles = new int[3 * (_currentPoints.Count - 2)];
 
-        var currentVertices = new Dictionary<int, Vector3>();
+        Mesh mesh = new Mesh();
+        var vertices = new List<Vector3>(_currentPoints.Count);
 
         for (int i = 0; i < _currentPoints.Count; i++)
         {
-            vertices[i] = _currentPoints[i].CurrentPosition;
-            currentVertices.Add(i, vertices[i]);
-            Instantiate(new GameObject(i.ToString()), _currentPoints[i].CurrentPosition, Quaternion.identity, transform);
+            vertices.Add(_currentPoints[i].CurrentPosition);
+            Instantiate(new GameObject($"Point{i}"), _currentPoints[i].CurrentPosition, Quaternion.identity, transform);
             _currentPoints[i].CanConnect = false;
         }
 
+        var polygon = new Polygon();
+        foreach (var item in _currentPoints)
+            polygon.Add(new Vertex(item.CurrentPosition.x, item.CurrentPosition.z));
 
-        //Not working maybe learn how to use Polygon triangulation algorithm
+        var options = new ConstraintOptions() { ConformingDelaunay = true };
+        var quality = new QualityOptions() { MinimumAngle = 0 };
 
-        int minXVertexKey = currentVertices.OrderBy(x => x.Value.x).ThenByDescending(x => x.Value.z).Select(x => x.Key).First();
-        var higherPoints = currentVertices.Where(x => x.Key != minXVertexKey && x.Value.z >= currentVertices[minXVertexKey].z).OrderBy(x => x.Value.x).ToDictionary(x => x.Key, x => x.Value);
-        var lowerPoints = currentVertices.Where(x => x.Key != minXVertexKey && x.Value.z < currentVertices[minXVertexKey].z).OrderByDescending(x => x.Value.x).ToDictionary(x => x.Key, x => x.Value);
-        triangles[0] = minXVertexKey;
-        currentVertices.Remove(minXVertexKey);
+        var triangleMesh = polygon.Triangulate(options, quality);
 
-        currentVertices = higherPoints.Concat(lowerPoints).ToDictionary(x => x.Key, x => x.Value);
+        var triangles = new int[triangleMesh.Triangles.Count * 3];
 
-        if (_generateLogMessage)
-        {
-            Debug.Log(string.Join("\n", currentVertices));
-            Debug.Log("Vert: " + currentVertices.Count + " | | " + "Triang" + triangles.Length);
-        }
+        vertices = new List<Vector3>(triangleMesh.Vertices.Count);
+        foreach (var vertex in triangleMesh.Vertices)
+            vertices.Add(new Vector3((float)vertex.X, 0, (float)vertex.Y));
 
-        int core = 0, current = 1;
-        foreach (var item in currentVertices)
-        {
-            triangles[current++] = item.Key;
-        }
+        int currentTriangle = 0;
+        foreach (var triange in triangleMesh.Triangles)
+            for (int i = 0; i < 3; i++)
+                triangles[currentTriangle++] = triange.GetVertexID(i);
 
-        Debug.Log(string.Join(" ", triangles));
-
-        mesh.vertices = vertices;
-        mesh.triangles = triangles;
+        mesh.vertices = vertices.ToArray();
+        mesh.triangles = triangles.Reverse().ToArray();
         meshRenderer.material = _lightMat;
         mesh.RecalculateNormals();
         meshFilter.mesh = mesh;
@@ -91,13 +84,13 @@ public class GenerateMeshFromPoint : MonoBehaviour
 
     private void ClearAllPoints()
     {
-        foreach(ISelfDestroyable point in _currentPoints) point.DestroySelf();
+        foreach (ISelfDestroyable point in _currentPoints) point.DestroySelf();
     }
 
     private void ClearMeshGameObject()
     {
         GameObject.Destroy(_currentMeshObject);
-    }    
+    }
 
     private void OnDrawGizmos()
     {

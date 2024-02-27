@@ -172,10 +172,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f12e6f52cd5a15419ddfb615f43ba2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vertices2D: []
-  _randomPointsCircleRadius: 0
-  _pointsToGenerate: 0
-  _pointPrefab: {fileID: 0}
 --- !u!1 &31842748
 GameObject:
   m_ObjectHideFlags: 0
@@ -2101,7 +2097,8 @@ MonoBehaviour:
   _pointPrefab: {fileID: 7865405933203164479, guid: 58533bae5de644e458b1869b9481d92b, type: 3}
   _lightMat: {fileID: 2100000, guid: 607a02c38e131b24ab7fdb5c60f783af, type: 2}
   _currentPoints: []
-  _generateLogMessage: 0
+  _generateLogMessage: 1
+  _normals: 
 --- !u!4 &280663736
 Transform:
   m_ObjectHideFlags: 0
@@ -2796,10 +2793,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f12e6f52cd5a15419ddfb615f43ba2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vertices2D: []
-  _randomPointsCircleRadius: 0
-  _pointsToGenerate: 0
-  _pointPrefab: {fileID: 0}
 --- !u!1 &378693711
 GameObject:
   m_ObjectHideFlags: 0
@@ -4184,12 +4177,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2c4b2b267928142b495e4c1acd561f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointsToCreate: 3
+  _pointsToCreate: 5
   _randomPointsCircleRadius: 11
   _pointPrefab: {fileID: 7865405933203164479, guid: 58533bae5de644e458b1869b9481d92b, type: 3}
   _lightMat: {fileID: 2100000, guid: 607a02c38e131b24ab7fdb5c60f783af, type: 2}
   _currentPoints: []
   _generateLogMessage: 0
+  _normals: 
 --- !u!1 &670979205
 GameObject:
   m_ObjectHideFlags: 0
@@ -4234,12 +4228,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2c4b2b267928142b495e4c1acd561f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointsToCreate: 3
+  _pointsToCreate: 5
   _randomPointsCircleRadius: 11
   _pointPrefab: {fileID: 7865405933203164479, guid: 58533bae5de644e458b1869b9481d92b, type: 3}
   _lightMat: {fileID: 2100000, guid: 607a02c38e131b24ab7fdb5c60f783af, type: 2}
   _currentPoints: []
   _generateLogMessage: 0
+  _normals: 
 --- !u!1 &673392111
 GameObject:
   m_ObjectHideFlags: 0
@@ -5420,12 +5415,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2c4b2b267928142b495e4c1acd561f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointsToCreate: 3
+  _pointsToCreate: 6
   _randomPointsCircleRadius: 11
   _pointPrefab: {fileID: 7865405933203164479, guid: 58533bae5de644e458b1869b9481d92b, type: 3}
   _lightMat: {fileID: 2100000, guid: 607a02c38e131b24ab7fdb5c60f783af, type: 2}
   _currentPoints: []
-  _generateLogMessage: 0
+  _generateLogMessage: 1
+  _normals: 
 --- !u!4 &847942045
 Transform:
   m_ObjectHideFlags: 0
@@ -5629,6 +5625,7 @@ MonoBehaviour:
   _lightMat: {fileID: 2100000, guid: 607a02c38e131b24ab7fdb5c60f783af, type: 2}
   _currentPoints: []
   _generateLogMessage: 0
+  _normals: 
 --- !u!1 &909117574
 GameObject:
   m_ObjectHideFlags: 0
@@ -5889,6 +5886,7 @@ MonoBehaviour:
   _lightMat: {fileID: 2100000, guid: 607a02c38e131b24ab7fdb5c60f783af, type: 2}
   _currentPoints: []
   _generateLogMessage: 0
+  _normals: 
 --- !u!1 &965084457
 GameObject:
   m_ObjectHideFlags: 0
@@ -5923,7 +5921,8 @@ MonoBehaviour:
   _pointPrefab: {fileID: 7865405933203164479, guid: 58533bae5de644e458b1869b9481d92b, type: 3}
   _lightMat: {fileID: 2100000, guid: 607a02c38e131b24ab7fdb5c60f783af, type: 2}
   _currentPoints: []
-  _generateLogMessage: 0
+  _generateLogMessage: 1
+  _normals: 
 --- !u!4 &965084459
 Transform:
   m_ObjectHideFlags: 0
@@ -5983,12 +5982,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2c4b2b267928142b495e4c1acd561f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointsToCreate: 3
+  _pointsToCreate: 5
   _randomPointsCircleRadius: 11
   _pointPrefab: {fileID: 7865405933203164479, guid: 58533bae5de644e458b1869b9481d92b, type: 3}
   _lightMat: {fileID: 2100000, guid: 607a02c38e131b24ab7fdb5c60f783af, type: 2}
   _currentPoints: []
   _generateLogMessage: 0
+  _normals: 
 --- !u!1 &1008601186
 GameObject:
   m_ObjectHideFlags: 0
@@ -7172,7 +7172,8 @@ MonoBehaviour:
   _pointPrefab: {fileID: 7865405933203164479, guid: 58533bae5de644e458b1869b9481d92b, type: 3}
   _lightMat: {fileID: 2100000, guid: 607a02c38e131b24ab7fdb5c60f783af, type: 2}
   _currentPoints: []
-  _generateLogMessage: 0
+  _generateLogMessage: 1
+  _normals: 
 --- !u!4 &1334541110
 Transform:
   m_ObjectHideFlags: 0
@@ -7447,10 +7448,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f12e6f52cd5a15419ddfb615f43ba2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vertices2D: []
-  _randomPointsCircleRadius: 0
-  _pointsToGenerate: 0
-  _pointPrefab: {fileID: 0}
 --- !u!1 &1472532714
 GameObject:
   m_ObjectHideFlags: 0
@@ -7500,7 +7497,8 @@ MonoBehaviour:
   _pointPrefab: {fileID: 7865405933203164479, guid: 58533bae5de644e458b1869b9481d92b, type: 3}
   _lightMat: {fileID: 2100000, guid: 607a02c38e131b24ab7fdb5c60f783af, type: 2}
   _currentPoints: []
-  _generateLogMessage: 1
+  _generateLogMessage: 0
+  _normals: 
 --- !u!1 &1524624896
 GameObject:
   m_ObjectHideFlags: 0
@@ -7650,12 +7648,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2c4b2b267928142b495e4c1acd561f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointsToCreate: 3
+  _pointsToCreate: 5
   _randomPointsCircleRadius: 11
   _pointPrefab: {fileID: 7865405933203164479, guid: 58533bae5de644e458b1869b9481d92b, type: 3}
   _lightMat: {fileID: 2100000, guid: 607a02c38e131b24ab7fdb5c60f783af, type: 2}
   _currentPoints: []
   _generateLogMessage: 0
+  _normals: 
 --- !u!1 &1589091291
 GameObject:
   m_ObjectHideFlags: 0
@@ -7706,6 +7705,7 @@ MonoBehaviour:
   _lightMat: {fileID: 2100000, guid: 607a02c38e131b24ab7fdb5c60f783af, type: 2}
   _currentPoints: []
   _generateLogMessage: 0
+  _normals: 
 --- !u!1 &1612632084
 GameObject:
   m_ObjectHideFlags: 0
@@ -9085,12 +9085,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2c4b2b267928142b495e4c1acd561f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointsToCreate: 3
+  _pointsToCreate: 5
   _randomPointsCircleRadius: 11
   _pointPrefab: {fileID: 7865405933203164479, guid: 58533bae5de644e458b1869b9481d92b, type: 3}
   _lightMat: {fileID: 2100000, guid: 607a02c38e131b24ab7fdb5c60f783af, type: 2}
   _currentPoints: []
   _generateLogMessage: 0
+  _normals: 
 --- !u!1 &1779032381
 GameObject:
   m_ObjectHideFlags: 0
@@ -9125,7 +9126,8 @@ MonoBehaviour:
   _pointPrefab: {fileID: 7865405933203164479, guid: 58533bae5de644e458b1869b9481d92b, type: 3}
   _lightMat: {fileID: 2100000, guid: 607a02c38e131b24ab7fdb5c60f783af, type: 2}
   _currentPoints: []
-  _generateLogMessage: 0
+  _generateLogMessage: 1
+  _normals: 
 --- !u!4 &1779032383
 Transform:
   m_ObjectHideFlags: 0
@@ -9296,6 +9298,7 @@ MonoBehaviour:
   _lightMat: {fileID: 2100000, guid: 607a02c38e131b24ab7fdb5c60f783af, type: 2}
   _currentPoints: []
   _generateLogMessage: 0
+  _normals: 
 --- !u!1 &1853598100
 GameObject:
   m_ObjectHideFlags: 0
