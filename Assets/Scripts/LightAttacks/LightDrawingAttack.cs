@@ -2,6 +2,7 @@ using Energy;
 using Inputs;
 using MyUtils;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace LightAttacks
@@ -55,7 +56,26 @@ namespace LightAttacks
                     _lineRenderer.AddNewPoint(snapPoint.CurrentPosition);
 
                     ILightConnectable[] connectedPoints = GetAttackPointsConnectedInLoop();
-                    //TODO: Add code creating custom meshesh from points (current in tests)
+
+                    if (connectedPoints is null) return;
+
+                    ClearAttackPoints();
+
+                    GameObject meshObject = new GameObject("LightAttackArea");
+                    var meshFilter = meshObject.AddComponent<MeshFilter>();
+                    var meshRenderer = meshObject.AddComponent<MeshRenderer>();
+
+                    for (int i = 0; i < connectedPoints.Length; i++)
+                        connectedPoints[i].CanConnect = false;
+
+                    meshFilter.mesh = MeshGeneration.GeneratePlainMeshFromPoints(
+                        connectedPoints
+                            .Select(x => x.CurrentPosition)
+                            .Select(x => new Vector2(x.x, x.z))
+                            .ToArray()
+                    );
+
+                    meshRenderer.material = _lightAttackMaterial;
                 }
                 else
                 {
@@ -69,8 +89,7 @@ namespace LightAttacks
 
                     if (pointToConnectLine is null)
                     {
-                        _lineRenderer.positionCount = 0;
-                        _attackPoints.Clear();
+                        ClearAttackPoints();
                     }
 
                     ConnectToLastAttackPoint(newPoint);
@@ -81,6 +100,13 @@ namespace LightAttacks
 
                 _energySystem.EnergyContainer.DecreaseEnergy(_lightAttackEnergyCost);
             }
+        }
+
+        private bool CanPlaceLightAttackPoint()
+        {
+            GameObject hoveredObject = Pointer.Instance.GetHoveredGameObject();
+            return _canPlaceLightPointsOn.IsContainingLayer(hoveredObject.layer)
+                && _energySystem.EnergyContainer.IsHavingEnergy(_lightAttackEnergyCost);
         }
 
         private ILightConnectable[] GetAttackPointsConnectedInLoop()
@@ -109,11 +135,16 @@ namespace LightAttacks
             return result.ToArray();
         }
 
-        private bool CanPlaceLightAttackPoint()
+        private void ClearAttackPoints()
         {
-            GameObject hoveredObject = Pointer.Instance.GetHoveredGameObject();
-            return _canPlaceLightPointsOn.IsContainingLayer(hoveredObject.layer)
-                && _energySystem.EnergyContainer.IsHavingEnergy(_lightAttackEnergyCost);
+            _lineRenderer.positionCount = 0;
+            _attackPoints.Clear();
+        }
+
+        private void ConnectToLastAttackPoint(ILightConnectable newPoint)
+        {
+            if (_attackPoints.Count > 0)
+                _attackPoints[^1].IsConnectedTo = newPoint;
         }
 
         private ILightConnectable GetLightPointInRadiusIfExists(float radius)
@@ -144,12 +175,6 @@ namespace LightAttacks
             }
 
             return lightPoint;
-        }
-
-        private void ConnectToLastAttackPoint(ILightConnectable newPoint)
-        {
-            if (_attackPoints.Count > 0)
-                _attackPoints[^1].IsConnectedTo = newPoint;
         }
     }
 }
