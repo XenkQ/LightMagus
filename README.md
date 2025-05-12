@@ -8,3 +8,6 @@ You are a mage of light who has to pass "test of the cave" to become a real mage
 In this project I want to learn:
 * mesh generation
 * better codding
+
+## Status
+Prototype, development stopped
